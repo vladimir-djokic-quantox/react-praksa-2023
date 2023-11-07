@@ -1,18 +1,14 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import useFetchStore from '../store/useFetchStore';
 import useLogStore from '../store/useLogStore';
-import useFetchData from '../hooks/useFetchData';
 
 type LoginFormProps = {
-  email: string;
+  username: string;
   password: string;
 };
 
 function LoginForm() {
-  const { usersList } = useFetchStore();
-  const { setIsLoggedin, isLoggedin } = useLogStore();
-  useFetchData();
-  console.log(usersList);
+  const { setIsLoggedin, fetchAuth } = useLogStore();
+
   const {
     control,
     handleSubmit,
@@ -20,14 +16,9 @@ function LoginForm() {
   } = useForm<LoginFormProps>();
 
   const onSubmit: SubmitHandler<LoginFormProps> = (data) => {
-    const foundUser = usersList.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
-    if (foundUser) {
-      setIsLoggedin(true);
-    }
+    fetchAuth(data.username, data.password);
+    setIsLoggedin(true);
   };
-  console.log(isLoggedin);
 
   return (
     <div className="grid justify-items-center h-80 w-80 mt-20 rounded-md shadow-xl  bg-gray-900 ">
@@ -36,19 +27,19 @@ function LoginForm() {
         <div>
           <label>Email:</label>
           <Controller
-            name="email"
+            name="username"
             control={control}
-            rules={{ required: 'Email is required' }}
+            rules={{ required: 'Username is required' }}
             defaultValue=""
             render={({ field }) => (
               <input
                 {...field}
-                type="email"
+                type="username"
                 className="ml-2 mb-2 rounded-sm border-neutral-500"
               />
             )}
           />
-          {errors.email && <span>{errors.email.message}</span>}
+          {errors.username && <span>{errors.username.message}</span>}
         </div>
 
         <div>
