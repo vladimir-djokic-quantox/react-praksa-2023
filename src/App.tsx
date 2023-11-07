@@ -3,7 +3,7 @@ import './App.css';
 import LoginForm from './components/LoginForm';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
-// import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <div className="flex flex-col items-center h-screen ">
         <main>
           <Routes>
-            {/* <Route element={<ProtectedRoute />}> */}
-            <Route path="/" element={<ProductList />} />
-            {/* </Route> */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<ProductList />} />
+            </Route>
             <Route path="/login" element={<LoginForm />} />
           </Routes>
         </main>

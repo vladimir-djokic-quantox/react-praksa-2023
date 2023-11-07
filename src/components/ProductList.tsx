@@ -1,22 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetchStore from '../store/useFetchStore';
 import Pagination from './Pagination';
 import ProductLook from './ProductCard';
-import useFetchData from '../hooks/useFetchData';
 
 function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { totalProducts } = useFetchStore();
-  useFetchData();
+  const { totalProducts, fetchProducts } = useFetchStore();
+
+  useEffect(() => {
+    fetchProducts(currentPage);
+  }, [fetchProducts, currentPage]);
 
   const productsPerPage = 28;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    if (!totalProducts) {
-      <span>Loading...</span>;
-    }
+    fetchProducts(currentPage);
   };
 
   return (

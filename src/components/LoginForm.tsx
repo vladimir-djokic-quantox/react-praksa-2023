@@ -24,7 +24,7 @@ function LoginForm() {
       (user) => user.email === data.email && user.password === data.password
     );
     if (foundUser) {
-      setIsLoggedin();
+      setIsLoggedin(true);
     }
   };
   console.log(isLoggedin);
@@ -39,6 +39,7 @@ function LoginForm() {
             name="email"
             control={control}
             rules={{ required: 'Email is required' }}
+            defaultValue=""
             render={({ field }) => (
               <input
                 {...field}
@@ -56,6 +57,7 @@ function LoginForm() {
             name="password"
             control={control}
             rules={{ required: 'Password is required' }}
+            defaultValue=""
             render={({ field }) => (
               <input
                 {...field}
