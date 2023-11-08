@@ -20,8 +20,8 @@ const useLogStore = create<Login>((set) => ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: username,
-          password: password,
+          username,
+          password,
         }),
       });
 

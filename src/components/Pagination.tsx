@@ -24,7 +24,7 @@ function Pagination({
   }, [totalPages]);
 
   return (
-    <div className=" inline-flex -space-x-px text-sm ">
+    <div className=" inline-flex -space-x-px text-sm mb-12">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}

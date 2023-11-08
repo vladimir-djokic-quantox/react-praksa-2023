@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import useFetchStore from '../store/useFetchStore';
 import Pagination from './Pagination';
-import ProductLook from './ProductCard';
+import ProductCard from './ProductCard';
 
 function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { totalProducts, fetchProducts } = useFetchStore();
+  const { totalProducts, productsList, fetchProducts } = useFetchStore();
 
   useEffect(() => {
     fetchProducts(currentPage);
@@ -21,7 +21,11 @@ function ProductList() {
 
   return (
     <div className="grid  justify-items-center">
-      <ProductLook />
+      <div className="grid grid-cols-1  justify-items-center m-12 sm:grid-cols-2 first-letter: md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {productsList.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
