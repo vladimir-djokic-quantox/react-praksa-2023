@@ -1,12 +1,12 @@
 type User = {
   id: number;
+  username: string;
+  email: string;
   firstName: string;
   lastName: string;
-  age: number;
-  email: string;
-  phone: string;
-  username: string;
-  password: string;
+  gender: string;
+  image: string;
+  token: string;
 };
 
 export default User;

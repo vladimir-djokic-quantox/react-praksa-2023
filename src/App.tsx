@@ -11,7 +11,7 @@ function App() {
     <Router>
       <Navbar />
       <div>
-        <main>
+        <main className="grid justify-items-center">
           <Routes>
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<ProductList />} />
@@ -26,4 +26,3 @@ function App() {
 }
 
 export default App;
-// className="flex flex-col items-center h-screen "

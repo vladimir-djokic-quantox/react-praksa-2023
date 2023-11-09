@@ -7,8 +7,9 @@ type LoginFormProps = {
 };
 
 function LoginForm() {
-  const { setIsLoggedin, fetchAuth } = useLogStore();
+  const { setIsLoggedin, fetchAuth, userData } = useLogStore();
 
+  console.log(userData);
   const {
     control,
     handleSubmit,
@@ -25,7 +26,7 @@ function LoginForm() {
       <h2 className="text-2xl font-bold mt-12">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label>Email:</label>
+          <label>Username:</label>
           <Controller
             name="username"
             control={control}

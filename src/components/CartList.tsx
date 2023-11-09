@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import useCartStore from '../store/useCartStore';
 import ProductCard from './ProductCard';
+import useLogStore from '../store/useLogStore';
 
 function CartList() {
   const { userCart, fetchUserCartData } = useCartStore();
+  const { userData } = useLogStore();
 
   useEffect(() => {
-    fetchUserCartData();
-  }, [fetchUserCartData]);
-
-  console.log(userCart?.products);
+    fetchUserCartData(userData?.id);
+  }, [fetchUserCartData, userData]);
 
   return (
     <div className="grid grid-cols-1  justify-items-center m-12 sm:grid-cols-2 first-letter: md:grid-cols-3 lg:grid-cols-4 gap-4">
