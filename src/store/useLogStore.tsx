@@ -27,6 +27,7 @@ const useLogStore = create<Login>((set) => ({
           password,
         }),
       });
+
       const data = await response.json();
 
       if (response.ok) {

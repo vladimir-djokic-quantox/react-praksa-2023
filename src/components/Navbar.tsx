@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import useCartStore from '../store/useCartStore';
 
 function Navbar() {
+  const { userCart } = useCartStore();
   return (
     <div>
       <nav className="bg-white border-gray-200 shadow-xl dark:bg-gray-900">
@@ -28,7 +30,8 @@ function Navbar() {
                   href="/cart"
                   className=' className="block py-2 pl-3 pr-4 text-white bg-blue-700 font-semibold rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"'
                 >
-                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <FontAwesomeIcon icon={faShoppingCart} />{' '}
+                  {userCart?.totalProducts}
                 </a>
               </li>
             </ul>
