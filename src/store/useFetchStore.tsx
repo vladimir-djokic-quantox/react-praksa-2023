@@ -6,6 +6,8 @@ type ProductData = {
   totalProducts: number;
   pageSize: number;
   fetchProducts: (page: number) => Promise<void>;
+  fetchSearchData: (query: string) => Promise<void>;
+  fetchProductCategory: (category: string) => Promise<void>;
 };
 
 const useFetchStore = create<ProductData>((set, get) => ({
@@ -19,6 +21,20 @@ const useFetchStore = create<ProductData>((set, get) => ({
     );
     const data = await response.json();
     set({ productsList: data?.products, totalProducts: data?.total });
+  },
+  fetchSearchData: async (query: string) => {
+    const response = await fetch(
+      `https://dummyjson.com/products/search?q=${query}`
+    );
+    const data = await response.json();
+    set({ productsList: data?.products });
+  },
+  fetchProductCategory: async (category) => {
+    const response = await fetch(
+      `https://dummyjson.com/products/category/${category}`
+    );
+    const data = await response.json();
+    set({ productsList: data?.products });
   },
 }));
 

@@ -2,9 +2,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import Navbar from './components/Navbar';
-import ProductList from './components/ProductList';
+import ProductList from './components/product/ProductList';
 import ProtectedRoute from './components/ProtectedRoute';
-import CartList from './components/CartList';
+import CartList from './components/cart/CartList';
+import Account from './components/Account';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<ProductList />} />
+              <Route path="/acc" element={<Account />} />
               <Route path="/cart" element={<CartList />} />
             </Route>
             <Route path="/login" element={<LoginForm />} />

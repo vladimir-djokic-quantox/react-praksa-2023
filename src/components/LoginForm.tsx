@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import useLogStore from '../store/useLogStore';
+import { useNavigate } from 'react-router-dom';
 
 type LoginFormProps = {
   username: string;
@@ -7,19 +8,22 @@ type LoginFormProps = {
 };
 
 function LoginForm() {
-  const { setIsLoggedin, fetchAuth, userData } = useLogStore();
+  const { setIsLoggedin, fetchAuth, isLoggedin } = useLogStore();
+  const navigate = useNavigate();
 
-  console.log(userData);
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormProps>();
 
-  const onSubmit: SubmitHandler<LoginFormProps> = (data) => {
-    fetchAuth(data.username, data.password);
+  const onSubmit: SubmitHandler<LoginFormProps> = async (data) => {
+    await fetchAuth(data.username, data.password);
     setIsLoggedin(true);
   };
+  if (isLoggedin) {
+    navigate('/');
+  }
 
   return (
     <div className="grid justify-items-center h-80 w-80 mt-20 rounded-md shadow-xl  bg-gray-900 ">
