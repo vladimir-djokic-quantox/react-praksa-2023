@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import useCartStore from '../store/useCartStore';
+import useCartStore from '../../store/useCartStore';
 
 function Navbar() {
   const { userCart } = useCartStore();
@@ -20,7 +20,7 @@ function Navbar() {
               <li>
                 <a
                   href="/"
-                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 font-semibold rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                  className="block py-2 pl-3 pr-4 text-white  font-semibold  rounded md:bg-transparent md:p-0  hover:text-blue-700 "
                 >
                   Home
                 </a>
@@ -28,7 +28,7 @@ function Navbar() {
               <li>
                 <a
                   href="/acc"
-                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 font-semibold rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                  className="block py-2 pl-3 pr-4 text-white  font-semibold rounded md:bg-transparent md:p-0  hover:text-blue-700"
                 >
                   Account
                 </a>
@@ -36,7 +36,7 @@ function Navbar() {
               <li>
                 <a
                   href="/cart"
-                  className=' className="block py-2 pl-3 pr-4 text-white bg-blue-700 font-semibold rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"'
+                  className='className="block py-2 pl-3 pr-4 text-white  font-semibold rounded md:bg-transparent md:p-0  hover:text-blue-700'
                 >
                   <FontAwesomeIcon icon={faShoppingCart} />{' '}
                   {userCart?.totalProducts}

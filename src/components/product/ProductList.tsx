@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useFetchStore from '../../store/useFetchStore';
-import Pagination from '../Pagination';
+import Pagination from '../layout/Pagination';
 import ProductCard from '../ProductCard';
 import ProductSearch from './ProductSearch';
 import useLogStore from '../../store/useLogStore';

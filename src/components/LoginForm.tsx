@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import useLogStore from '../store/useLogStore';
 import { useNavigate } from 'react-router-dom';
+import Button from './layout/assets/Button';
 
 type LoginFormProps = {
   username: string;
@@ -21,16 +22,18 @@ function LoginForm() {
     await fetchAuth(data.username, data.password);
     setIsLoggedin(true);
   };
+
   if (isLoggedin) {
     navigate('/');
   }
 
   return (
-    <div className="grid justify-items-center h-80 w-80 mt-20 rounded-md shadow-xl  bg-gray-900 ">
+    <div className="grid justify-items-center h-80 w-80 mt-20 rounded-md shadow-xl bg-gray-900 ">
       <h2 className="text-2xl font-bold mt-12">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Username:</label>
+        <div className="text-right">
+          {' '}
+          <label className="text-left">Username:</label>
           <Controller
             name="username"
             control={control}
@@ -47,8 +50,9 @@ function LoginForm() {
           {errors.username && <span>{errors.username.message}</span>}
         </div>
 
-        <div>
-          <label>Password:</label>
+        <div className="text-right">
+          {' '}
+          <label className="text-left">Password:</label>
           <Controller
             name="password"
             control={control}
@@ -58,19 +62,15 @@ function LoginForm() {
               <input
                 {...field}
                 type="password"
-                className="ml-2 mb-2 rounded-sm border-neutral-500"
+                className="ml-2 mb-2 rounded-sm border-neutral-500 justify-end"
               />
             )}
           />
           {errors.password && <span>{errors.password.message}</span>}
         </div>
-
-        <button
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-          type="submit"
-        >
-          Login
-        </button>
+        <div className="grid justify-items-center mt-8">
+          <Button type="submit">Login</Button>
+        </div>
       </form>
     </div>
   );

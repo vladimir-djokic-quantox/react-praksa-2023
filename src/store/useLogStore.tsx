@@ -3,9 +3,10 @@ import User from '../types/User';
 
 type Login = {
   isLoggedin: boolean;
-  userData: User;
+  userData: User | null;
   setIsLoggedin: (value: boolean) => void;
   fetchAuth: (username: string, password: string) => Promise<void>;
+  logout: () => void;
 };
 
 const useLogStore = create<Login>((set) => ({
@@ -47,6 +48,12 @@ const useLogStore = create<Login>((set) => ({
       window.localStorage.setItem('isLoggedIn', 'false');
       window.localStorage.removeItem('userData');
     }
+  },
+  logout: () => {
+    set({ isLoggedin: false });
+    set({ userData: null });
+    window.localStorage.setItem('isLoggedIn', 'false');
+    window.localStorage.removeItem('userData');
   },
 }));
 
