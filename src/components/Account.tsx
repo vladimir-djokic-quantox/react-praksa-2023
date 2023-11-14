@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useLogStore from '../store/useLogStore';
-import Button from './layout/assets/Button';
+import Button from './ui/Button';
 
 function Account() {
   const { userData, logout, isLoggedin } = useLogStore();

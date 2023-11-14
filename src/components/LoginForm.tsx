@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import useLogStore from '../store/useLogStore';
 import { useNavigate } from 'react-router-dom';
-import Button from './layout/assets/Button';
+import Button from './ui/Button';
 
 type LoginFormProps = {
   username: string;

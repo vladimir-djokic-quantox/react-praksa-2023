@@ -1,8 +1,10 @@
-import CartProduct from '../types/CartProduct';
-import Product from '../types/Product';
+import CartProduct from '../../types/CartProduct';
+import Product from '../../types/Product';
+import Button from '../ui/Button';
 
 type ProductCardProps = {
   product: CartProduct | Product;
+  onAction: (action: string, id: number) => void;
 };
 
 const isProduct = (product: CartProduct | Product): product is Product => {
@@ -16,6 +18,11 @@ const isCartProduct = (
 };
 
 function ProductCard(props: ProductCardProps) {
+  const handleButtonClick = (action: string) => {
+    const { onAction, product } = props;
+    onAction(action, product.id);
+  };
+
   const renderProductInfo = (product: Product) => {
     return (
       <>
@@ -23,6 +30,18 @@ function ProductCard(props: ProductCardProps) {
         <p>Stock: {product?.stock}</p>
         <p>Brand: {product?.brand}</p>
         <p>Category: {product?.category}</p>
+        <div className="mt-2 grid grid-cols-2">
+          <div className="mr-2">
+            <Button onClick={() => handleButtonClick('details')}>
+              Details
+            </Button>
+          </div>
+          <div>
+            <Button onClick={() => handleButtonClick('addtocart')}>
+              Add to Cart
+            </Button>
+          </div>
+        </div>
       </>
     );
   };
@@ -33,6 +52,7 @@ function ProductCard(props: ProductCardProps) {
         <p>Quantity: {product?.quantity}</p>
         <p>Total: {product?.total}</p>
         <p>Price with discount: {product?.discountedPrice}</p>
+        <Button onClick={() => handleButtonClick('remove')}>Remove</Button>
       </>
     );
   };
@@ -51,7 +71,7 @@ function ProductCard(props: ProductCardProps) {
       <img
         src={props.product?.thumbnail}
         alt={props.product?.title}
-        className="rounded-md h-24 w-48 inset-x-0 bottom-0 my-4 mx-4"
+        className="rounded-md h-24 w-48 inset-x-0 bottom-0 mb-4"
       />
     </div>
   );

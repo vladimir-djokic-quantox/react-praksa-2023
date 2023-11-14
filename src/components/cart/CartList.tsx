@@ -1,5 +1,5 @@
 import useCartStore from '../../store/useCartStore';
-import ProductCard from '../ProductCard';
+import ProductCard from '../product/ProductCard';
 
 function CartList() {
   const { userCart } = useCartStore();
