@@ -6,12 +6,14 @@ import ProductSearch from './ProductSearch';
 import useLogStore from '../../store/useLogStore';
 import useCartStore from '../../store/useCartStore';
 import { useNavigate } from 'react-router-dom';
+import CartProduct from '../../types/CartProduct';
+import Product from '../../types/Product';
 
 function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const { totalProducts, productsList, fetchProducts, fetchProductDetails } =
     useFetchStore();
-  const { fetchUserCartData } = useCartStore();
+  const { fetchUserCartData, addItemToCart } = useCartStore();
   const { userData } = useLogStore();
   const navigate = useNavigate();
 
@@ -28,20 +30,18 @@ function ProductList() {
     fetchProducts(currentPage);
   };
 
-  const handleAction = (action: string, id: number) => {
+  const handleAction = (action: string, product: CartProduct | Product) => {
     switch (action) {
       case 'details':
-        console.log(id);
-        fetchProductDetails(id);
+        fetchProductDetails(product.id);
         navigate('/details');
         break;
       case 'addtocart':
-        console.log('Action 2 executed');
-        // Perform action for button 2
-        break;
-      case 'remove':
-        console.log('Action 3 executed');
-        // Perform action for button 3
+        if ('quantity' in product) {
+          addItemToCart(product);
+        } else {
+          console.log('Invalid product type for "addtocart" action');
+        }
         break;
       default:
         console.log('Unknown action');
