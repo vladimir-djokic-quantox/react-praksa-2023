@@ -1,7 +1,20 @@
+import { useEffect } from 'react';
 import useFetchStore from '../../store/useFetchStore';
+import { useParams } from 'react-router-dom';
 
 function ProductDetails() {
-  const { productDetails } = useFetchStore();
+  const { productDetails, fetchProductDetails } = useFetchStore();
+  const { id } = useParams();
+
+  const productId = Number(id);
+
+  useEffect(() => {
+    fetchProductDetails(productId);
+  }, [fetchProductDetails, productId]);
+
+  if (!productDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

@@ -34,7 +34,7 @@ function ProductList() {
     switch (action) {
       case 'details':
         fetchProductDetails(product.id);
-        navigate('/details');
+        navigate(`/details/${product.id}`);
         break;
       case 'addtocart':
         if ('quantity' in product) {
