@@ -15,8 +15,8 @@ function App() {
       <div>
         <main className="grid justify-items-center">
           <Routes>
+            <Route path="/" element={<ProductList />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<ProductList />} />
               <Route path="/acc" element={<Account />} />
               <Route path="/cart" element={<CartList />} />
               <Route path="/details" element={<ProductDetails />} />
