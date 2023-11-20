@@ -1,15 +1,23 @@
+import { useEffect } from 'react';
 import useCartStore from '../../store/useCartStore';
-import CartProduct from '../../types/CartProduct';
-import Product from '../../types/Product';
+import useLogStore from '../../store/useLogStore';
 import ProductCard from '../product/ProductCard';
 
 function CartList() {
-  const { userCart, removeItemFromCart } = useCartStore();
+  const { userCart, fetchUserCartData, removeItemFromCart } = useCartStore();
+  const { userData } = useLogStore();
 
-  const handleAction = (action: string, product: CartProduct | Product) => {
+  console.log(userData);
+  useEffect(() => {
+    if (userData && !userCart) {
+      fetchUserCartData(userData.id);
+    }
+  }, [fetchUserCartData, userData, userCart]);
+
+  const handleAction = (action: string, productId: number) => {
     switch (action) {
       case 'remove':
-        removeItemFromCart(product.id);
+        removeItemFromCart(productId);
         break;
       default:
         console.log('Unknown action');

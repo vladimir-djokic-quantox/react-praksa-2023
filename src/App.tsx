@@ -16,10 +16,10 @@ function App() {
         <main className="grid justify-items-center">
           <Routes>
             <Route path="/" element={<ProductList />} />
+            <Route path="/details/:id" element={<ProductDetails />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/acc" element={<Account />} />
               <Route path="/cart" element={<CartList />} />
-              <Route path="/details/:id" element={<ProductDetails />} />
             </Route>
             <Route path="/login" element={<LoginForm />} />
           </Routes>

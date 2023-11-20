@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 
 type ProductCardProps = {
   product: CartProduct | Product;
-  onAction: (action: string, product: CartProduct | Product) => void;
+  onAction: (action: string, productId: number) => void;
 };
 
 const isProduct = (product: CartProduct | Product): product is Product => {
@@ -20,7 +20,7 @@ const isCartProduct = (
 function ProductCard(props: ProductCardProps) {
   const handleButtonClick = (action: string) => {
     const { onAction, product } = props;
-    onAction(action, product);
+    onAction(action, product.id);
   };
 
   const renderProductInfo = (product: Product) => {

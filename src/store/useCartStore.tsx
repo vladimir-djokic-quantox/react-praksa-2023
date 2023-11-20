@@ -1,13 +1,11 @@
 import { create } from 'zustand';
 import UserCart from '../types/UserCart';
-import CartProduct from '../types/CartProduct';
-import Product from '../types/Product';
 
 type CartData = {
   userCart: UserCart | null;
   fetchUserCartData: (userId: number) => Promise<void>;
   removeItemFromCart: (productId: number) => void;
-  addItemToCart: (newProduct: CartProduct | Product) => void;
+  addItemToCart: (id: number) => void;
 };
 
 const useCartStore = create<CartData>((set, get) => ({
@@ -81,7 +79,7 @@ const useCartStore = create<CartData>((set, get) => ({
         });
     }
   },
-  addItemToCart: (newProduct) => {
+  addItemToCart: (id) => {
     const cartId = get().userCart?.id;
 
     if (cartId) {
@@ -92,7 +90,7 @@ const useCartStore = create<CartData>((set, get) => ({
         },
         body: JSON.stringify({
           merge: true,
-          products: [newProduct],
+          products: [{ id, quantity: 1 }],
         }),
       })
         .then((res) => {

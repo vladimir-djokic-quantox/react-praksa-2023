@@ -3,24 +3,19 @@ import useFetchStore from '../../store/useFetchStore';
 import Pagination from '../layout/Pagination';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
-import useLogStore from '../../store/useLogStore';
 import useCartStore from '../../store/useCartStore';
 import { useNavigate } from 'react-router-dom';
-import CartProduct from '../../types/CartProduct';
-import Product from '../../types/Product';
 
 function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const { totalProducts, productsList, fetchProducts, fetchProductDetails } =
     useFetchStore();
-  const { fetchUserCartData, addItemToCart } = useCartStore();
-  const { userData } = useLogStore();
+  const { addItemToCart } = useCartStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts(currentPage);
-    if (userData) fetchUserCartData(userData?.id);
-  }, [fetchProducts, currentPage, fetchUserCartData, userData]);
+  }, [fetchProducts, currentPage]);
 
   const productsPerPage = 28;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
@@ -30,18 +25,14 @@ function ProductList() {
     fetchProducts(currentPage);
   };
 
-  const handleAction = (action: string, product: CartProduct | Product) => {
+  const handleAction = (action: string, productId: number) => {
     switch (action) {
       case 'details':
-        fetchProductDetails(product.id);
-        navigate(`/details/${product.id}`);
+        fetchProductDetails(productId);
+        navigate(`/details/${productId}`);
         break;
       case 'addtocart':
-        if ('quantity' in product) {
-          addItemToCart(product);
-        } else {
-          console.log('Invalid product type for "addtocart" action');
-        }
+        addItemToCart(productId);
         break;
       default:
         console.log('Unknown action');
