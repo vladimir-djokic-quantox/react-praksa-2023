@@ -1,10 +1,12 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import useFetchStore from '../../store/useFetchStore';
 import ProductFilter from './ProductFilter';
+// import { useNavigate } from 'react-router-dom';
 
 function ProductSearch() {
   const [input, setInput] = useState('');
   const { fetchSearchData } = useFetchStore();
+  // const navigate = useNavigate();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -14,6 +16,14 @@ function ProductSearch() {
   useEffect(() => {
     fetchSearchData(input);
   }, [fetchSearchData, input]);
+
+  // const handleSubmit = (e: FormEvent) => {
+  //   e.preventDefault();
+
+  //   fetchSearchData(input);
+
+  //   navigate('/search');
+  // };
 
   return (
     <div className="mt-12 ">
@@ -29,6 +39,7 @@ function ProductSearch() {
           />
           <button
             type="submit"
+            // onSubmit={handleSubmit}
             className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             <svg

@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import useCartStore from '../../store/useCartStore';
+import useLogStore from '../../store/useLogStore';
 
 function Navbar() {
   const { userCart } = useCartStore();
+  const { isLoggedin } = useLogStore();
   return (
     <div>
       <nav className="bg-white border-gray-200 shadow-xl dark:bg-gray-900">
@@ -42,6 +44,16 @@ function Navbar() {
                   {userCart?.totalProducts}
                 </a>
               </li>
+              {!isLoggedin && (
+                <li>
+                  <a
+                    href="/login"
+                    className="block py-2 pl-3 pr-4 text-white font-semibold rounded md:bg-transparent md:p-0 hover:text-blue-700"
+                  >
+                    Login
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
