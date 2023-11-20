@@ -6,6 +6,9 @@ import useLogStore from '../../store/useLogStore';
 function Navbar() {
   const { userCart } = useCartStore();
   const { isLoggedin } = useLogStore();
+
+  const itemsInCart = userCart ? Object.keys(userCart?.products).length : 0;
+
   return (
     <div>
       <nav className="bg-white border-gray-200 shadow-xl dark:bg-gray-900">
@@ -40,8 +43,7 @@ function Navbar() {
                   href="/cart"
                   className='className="block py-2 pl-3 pr-4 text-white  font-semibold rounded md:bg-transparent md:p-0  hover:text-blue-700'
                 >
-                  <FontAwesomeIcon icon={faShoppingCart} />{' '}
-                  {userCart?.totalProducts}
+                  <FontAwesomeIcon icon={faShoppingCart} /> {itemsInCart}
                 </a>
               </li>
               {!isLoggedin && (

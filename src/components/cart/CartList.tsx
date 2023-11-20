@@ -7,7 +7,6 @@ function CartList() {
   const { userCart, fetchUserCartData, removeItemFromCart } = useCartStore();
   const { userData } = useLogStore();
 
-  console.log(userData);
   useEffect(() => {
     if (userData && !userCart) {
       fetchUserCartData(userData.id);
