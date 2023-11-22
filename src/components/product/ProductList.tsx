@@ -4,9 +4,10 @@ import Pagination from '../layout/Pagination';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
 import useCartStore from '../../store/useCartStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function ProductList() {
+  const { query = '' } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const { totalProducts, productsList, fetchProducts, fetchProductDetails } =
     useFetchStore();
@@ -14,15 +15,15 @@ function ProductList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts(currentPage);
-  }, [fetchProducts, currentPage]);
+    fetchProducts(currentPage, query || '');
+  }, [fetchProducts, currentPage, query]);
 
   const productsPerPage = 28;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchProducts(currentPage);
+    fetchProducts(currentPage, query);
   };
 
   const handleAction = (action: string, productId: number) => {
@@ -41,7 +42,7 @@ function ProductList() {
 
   return (
     <div className="grid  justify-items-center ">
-      <ProductSearch />
+      <ProductSearch currPage={currentPage} />
       <div className="grid grid-cols-1  justify-items-center m-12 sm:grid-cols-2 first-letter: md:grid-cols-3 lg:grid-cols-4 gap-4">
         {productsList.map((product) => (
           <ProductCard

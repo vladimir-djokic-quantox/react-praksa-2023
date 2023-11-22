@@ -17,17 +17,19 @@ function ProductDetails() {
   }
 
   return (
-    <div>
-      <div className="grid justify-items-start">
-        <p>Naslov: {productDetails?.title}</p>
-        <p>Opis: {productDetails?.description}</p>
-        <p>Cena: {productDetails?.price}</p>
-        <p>Popust: {productDetails?.discountPercentage}</p>
-        <p>Ocena: {productDetails?.rating}</p>
-        <p>Zalihe: {productDetails?.stock}</p>
-        <p>Brend: {productDetails?.brand}</p>
-        <p>Katgorija: {productDetails?.category}</p>
+    <div className="grid justify-items-start">
+      <div className="">
+        <p className="text-left ml-4 mt-8">{productDetails?.brand}</p>
+        <h2 className="text-2xl font-medium ml-2">{productDetails?.title}</h2>
       </div>
+      <p>{productDetails?.description}</p>
+      <p>Cena: {productDetails?.price}</p>
+      <p>Popust: {productDetails?.discountPercentage}</p>
+      <p>Ocena: {productDetails?.rating}</p>
+      <p>Zalihe: {productDetails?.stock}</p>
+
+      <p>Katgorija: {productDetails?.category}</p>
+
       {productDetails?.images && (
         <div className="grid grid-cols-4 gap-4 justify-items-end">
           {productDetails.images.map((image, index) => (

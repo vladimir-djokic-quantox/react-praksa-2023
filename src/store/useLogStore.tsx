@@ -54,6 +54,7 @@ const useLogStore = create<Login>((set) => ({
     set({ userData: null });
     window.localStorage.setItem('isLoggedIn', 'false');
     window.localStorage.removeItem('userData');
+    window.localStorage.removeItem('userCart');
   },
 }));
 
