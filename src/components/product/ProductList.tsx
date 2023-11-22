@@ -30,7 +30,7 @@ function ProductList() {
     switch (action) {
       case 'details':
         fetchProductDetails(productId);
-        navigate(`/details/${productId}`);
+        navigate(`/products/details/${productId}`);
         break;
       case 'addtocart':
         addItemToCart(productId);

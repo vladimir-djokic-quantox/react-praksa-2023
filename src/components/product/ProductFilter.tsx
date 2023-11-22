@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import useFilterStore from '../../store/useFilterStore';
 import useFetchStore from '../../store/useFetchStore';
+import { useNavigate } from 'react-router-dom';
 
 function ProductFilter() {
   const [hidden, setHidden] = useState(true);
   const { fetchCategories, categoryList } = useFilterStore();
   const { fetchProductCategory } = useFetchStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCategories();
@@ -37,6 +39,7 @@ function ProductFilter() {
             className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             onClick={() => {
               fetchProductCategory(category);
+              navigate(`/products/${category}`);
               setHidden(!hidden);
             }}
           >

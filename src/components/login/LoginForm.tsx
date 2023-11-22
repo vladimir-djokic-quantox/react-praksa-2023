@@ -24,7 +24,7 @@ function LoginForm() {
   };
 
   if (isLoggedin) {
-    navigate('/');
+    navigate('/products');
   }
 
   return (

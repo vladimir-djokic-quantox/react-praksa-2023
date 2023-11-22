@@ -14,11 +14,12 @@ function App() {
       <div>
         <main className="grid justify-items-center">
           <Routes>
-            <Route path="/" element={<ProductList />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:category" element={<ProductList />} />
             <Route path="/search/:query" element={<ProductList />} />
-            <Route path="/details/:id" element={<ProductDetails />} />
+            <Route path="/products/details/:id" element={<ProductDetails />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/acc" element={<Account />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/cart" element={<CartList />} />
             </Route>
             <Route path="/login" element={<LoginForm />} />
