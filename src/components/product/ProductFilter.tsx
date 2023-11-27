@@ -14,7 +14,7 @@ function ProductFilter() {
   }, [fetchCategories]);
 
   const handleFilterClick = () => {
-    setHidden(!hidden);
+    setHidden((prev) => !prev);
   };
 
   return (
@@ -40,7 +40,7 @@ function ProductFilter() {
             onClick={() => {
               fetchProductCategory(category);
               navigate(`/products/${category}`);
-              setHidden(!hidden);
+              setHidden((prev) => !prev);
             }}
           >
             {category}

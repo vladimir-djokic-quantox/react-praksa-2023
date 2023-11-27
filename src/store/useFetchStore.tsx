@@ -3,17 +3,17 @@ import Product from '../types/Product';
 
 type ProductData = {
   productsList: Product[];
-  productDetails: Product | null;
+  productDetails: Product[];
   totalProducts: number;
   pageSize: number;
   fetchProducts: (page: number, query: string) => Promise<void>;
   fetchProductCategory: (category: string) => Promise<void>;
-  fetchProductDetails: (id: number) => Promise<void>;
+  fetchProductDetails: (productName: string) => Promise<void>;
 };
 
 const useFetchStore = create<ProductData>((set, get) => ({
   productsList: [],
-  productDetails: null,
+  productDetails: [],
   totalProducts: 0,
   pageSize: 28,
   fetchProducts: async (page, query?) => {
@@ -36,10 +36,12 @@ const useFetchStore = create<ProductData>((set, get) => ({
     const data = await response.json();
     set({ productsList: data?.products });
   },
-  fetchProductDetails: async (id) => {
-    const response = await fetch(`https://dummyjson.com/products/${id}`);
+  fetchProductDetails: async (productName) => {
+    const response = await fetch(
+      `https://dummyjson.com/products/search?q=${productName}`
+    );
     const data = await response.json();
-    set({ productDetails: data });
+    set({ productDetails: data?.products });
   },
 }));
 

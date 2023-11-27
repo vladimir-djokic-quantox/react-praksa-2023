@@ -1,15 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import useFetchStore from '../../store/useFetchStore';
 import ProductFilter from './ProductFilter';
 import { useNavigate } from 'react-router-dom';
 
-type ProductSearchProps = {
-  currPage: number;
-};
-
-function ProductSearch(props: ProductSearchProps) {
+function ProductSearch() {
   const [input, setInput] = useState('');
-  const { fetchProducts } = useFetchStore();
+
   const navigate = useNavigate();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +13,6 @@ function ProductSearch(props: ProductSearchProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    fetchProducts(props.currPage, input);
     navigate(`/search/${input}`);
   };
 

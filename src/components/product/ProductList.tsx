@@ -15,7 +15,7 @@ function ProductList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts(currentPage, query || '');
+    fetchProducts(currentPage, query ?? '');
   }, [fetchProducts, currentPage, query]);
 
   const productsPerPage = 28;
@@ -26,11 +26,15 @@ function ProductList() {
     fetchProducts(currentPage, query);
   };
 
-  const handleAction = (action: string, productId: number) => {
+  const handleAction = (
+    action: string,
+    productId: number,
+    productName: string
+  ) => {
     switch (action) {
       case 'details':
-        fetchProductDetails(productId);
-        navigate(`/products/details/${productId}`);
+        fetchProductDetails(productName);
+        navigate(`/products/details/${productName}`);
         break;
       case 'addtocart':
         addItemToCart(productId);
@@ -42,7 +46,7 @@ function ProductList() {
 
   return (
     <div className="grid  justify-items-center ">
-      <ProductSearch currPage={currentPage} />
+      <ProductSearch />
       <div className="grid grid-cols-1  justify-items-center m-12 sm:grid-cols-2 first-letter: md:grid-cols-3 lg:grid-cols-4 gap-4">
         {productsList.map((product) => (
           <ProductCard

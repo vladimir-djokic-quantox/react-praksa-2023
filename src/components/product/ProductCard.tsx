@@ -4,12 +4,12 @@ import Button from '../ui/Button';
 
 type ProductCardProps = {
   product: CartProduct | Product;
-  onAction: (action: string, productId: number) => void;
+  onAction: (action: string, productId: number, productName: string) => void;
 };
 
 const isProduct = (product: CartProduct | Product): product is Product => {
   return 'rating' in product;
-};
+}; // type guard
 
 const isCartProduct = (
   product: CartProduct | Product
@@ -20,7 +20,7 @@ const isCartProduct = (
 function ProductCard(props: ProductCardProps) {
   const handleButtonClick = (action: string) => {
     const { onAction, product } = props;
-    onAction(action, product.id);
+    onAction(action, product.id, product.title);
   };
 
   const renderProductInfo = (product: Product) => {
