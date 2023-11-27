@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
-import useFilterStore from '../../store/useFilterStore';
-import useFetchStore from '../../store/useFetchStore';
+
 import { useNavigate } from 'react-router-dom';
+import useFetchStore from '../../store/useFetchStore';
 
 function ProductFilter() {
   const [hidden, setHidden] = useState(true);
-  const { fetchCategories, categoryList } = useFilterStore();
+  const [categoryList, setCategoryList] = useState([]);
   const { fetchProductCategory } = useFetchStore();
   const navigate = useNavigate();
 
+  const fetchCategories = async () => {
+    const response = await fetch('https://dummyjson.com/products/categories');
+    const data = await response.json();
+    setCategoryList(data);
+  };
+
   useEffect(() => {
     fetchCategories();
-  }, [fetchCategories]);
+  }, []);
 
   const handleFilterClick = () => {
     setHidden((prev) => !prev);
