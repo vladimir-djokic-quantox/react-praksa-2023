@@ -1,47 +1,41 @@
 import create from 'zustand';
 import Product from '../types/Product';
 
+const PAGE_SIZE = 28;
+
+type FetchProductsOptions = {
+  currentPage?: number;
+  query?: string;
+  category?: string;
+  productName?: string;
+};
 type ProductData = {
   productsList: Product[];
-  productDetails: Product[];
   totalProducts: number;
-  pageSize: number;
-  fetchProducts: (page: number, query: string) => Promise<void>;
-  fetchProductCategory: (category: string) => Promise<void>;
-  fetchProductDetails: (productName: string) => Promise<void>;
+  fetchProducts: (options?: FetchProductsOptions) => Promise<void>;
 };
 
-const useFetchStore = create<ProductData>((set, get) => ({
+const useFetchStore = create<ProductData>((set) => ({
   productsList: [],
-  productDetails: [],
   totalProducts: 0,
-  pageSize: 28,
-  fetchProducts: async (page, query?) => {
-    const skip = (page - 1) * get().pageSize;
+  fetchProducts: async (options?: FetchProductsOptions) => {
+    const page = options?.currentPage ?? 1;
+    const query = options?.query ?? '';
+    const category = options?.category ?? '';
+    const productName = options?.productName ?? '';
+    const skip = (page - 1) * PAGE_SIZE;
 
-    const response = await fetch(
-      query
-        ? `https://dummyjson.com/products/search?q=${query}`
-        : `https://dummyjson.com/products?limit=${get().pageSize}&skip=${skip}`
-    );
+    const fetchUrl = category
+      ? `https://dummyjson.com/products/category/${category}`
+      : query
+      ? `https://dummyjson.com/products/search?q=${query}`
+      : productName
+      ? `https://dummyjson.com/products/search?q=${productName}`
+      : `https://dummyjson.com/products?limit=${PAGE_SIZE}&skip=${skip}`;
 
+    const response = await fetch(fetchUrl);
     const data = await response.json();
     set({ productsList: data?.products, totalProducts: data?.total });
-  },
-
-  fetchProductCategory: async (category) => {
-    const response = await fetch(
-      `https://dummyjson.com/products/category/${category}`
-    );
-    const data = await response.json();
-    set({ productsList: data?.products });
-  },
-  fetchProductDetails: async (productName) => {
-    const response = await fetch(
-      `https://dummyjson.com/products/search?q=${productName}`
-    );
-    const data = await response.json();
-    set({ productDetails: data?.products });
   },
 }));
 

@@ -7,23 +7,22 @@ import useCartStore from '../../store/useCartStore';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function ProductList() {
-  const { query = '' } = useParams();
+  const { query = '', category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const { totalProducts, productsList, fetchProducts, fetchProductDetails } =
-    useFetchStore();
+  const { totalProducts, productsList, fetchProducts } = useFetchStore();
   const { addItemToCart } = useCartStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts(currentPage, query ?? '');
-  }, [fetchProducts, currentPage, query]);
+    fetchProducts({ currentPage, query, category });
+  }, [fetchProducts, currentPage, query, category]);
 
   const productsPerPage = 28;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchProducts(currentPage, query);
+    fetchProducts({ currentPage, query, category });
   };
 
   const handleAction = (
@@ -33,7 +32,7 @@ function ProductList() {
   ) => {
     switch (action) {
       case 'details':
-        fetchProductDetails(productName);
+        fetchProducts({ productName });
         navigate(`/products/details/${productName}`);
         break;
       case 'addtocart':

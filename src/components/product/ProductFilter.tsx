@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 import useFetchStore from '../../store/useFetchStore';
 
 function ProductFilter() {
   const [hidden, setHidden] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
-  const { fetchProductCategory } = useFetchStore();
+  const { fetchProducts } = useFetchStore();
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
@@ -44,7 +43,7 @@ function ProductFilter() {
             type="button"
             className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             onClick={() => {
-              fetchProductCategory(category);
+              fetchProducts(category);
               navigate(`/products/${category}`);
               setHidden((prev) => !prev);
             }}
