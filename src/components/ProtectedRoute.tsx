@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import useLogStore from '../store/useLogStore';
+import useSessionStore from '../store/useSessionStore';
 
 const ProtectedRoute = () => {
-  const { isLoggedin } = useLogStore();
+  const { isLoggedin } = useSessionStore();
 
   return isLoggedin ? <Outlet /> : <Navigate to={'/login'} />;
 };

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import useFetchStore from '../../store/useFetchStore';
+import useProductsStore from '../../store/useProductsStore';
+import useSessionStore from '../../store/useSessionStore';
 import Pagination from '../layout/Pagination';
 import ProductCard from './ProductCard';
 import ProductSearch from './ProductSearch';
-import useCartStore from '../../store/useCartStore';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function ProductList() {
   const { query = '', category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const { totalProducts, productsList, fetchProducts } = useFetchStore();
-  const { addItemToCart } = useCartStore();
+  const { totalProducts, productsList, fetchProducts } = useProductsStore();
+  const { addItemToCart } = useSessionStore();
   const navigate = useNavigate();
 
   useEffect(() => {

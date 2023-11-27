@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useFetchStore from '../../store/useFetchStore';
+import useProductsStore from '../../store/useProductsStore';
 
 function ProductFilter() {
   const [hidden, setHidden] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
-  const { fetchProducts } = useFetchStore();
+  const { fetchProducts } = useProductsStore();
   const navigate = useNavigate();
 
   const fetchCategories = async () => {

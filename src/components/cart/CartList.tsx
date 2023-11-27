@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import useCartStore from '../../store/useCartStore';
-import useLogStore from '../../store/useLogStore';
+import useSessionStore from '../../store/useSessionStore';
 import ProductCard from '../product/ProductCard';
 
 function CartList() {
-  const { userCart, fetchUserCartData, removeItemFromCart } = useCartStore();
-  const { userData } = useLogStore();
+  const { userCart, fetchUserCartData, removeItemFromCart, userData } =
+    useSessionStore();
 
   useEffect(() => {
     if (userData && !userCart) {

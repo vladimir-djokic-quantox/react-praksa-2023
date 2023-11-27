@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 function ProductSearch() {
   const [input, setInput] = useState('');
-
   const navigate = useNavigate();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

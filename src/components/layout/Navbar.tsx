@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import useCartStore from '../../store/useCartStore';
-import useLogStore from '../../store/useLogStore';
+import useSessionStore from '../../store/useSessionStore';
 
 function Navbar() {
-  const { userCart } = useCartStore();
-  const { isLoggedin } = useLogStore();
+  const { userCart, isLoggedin } = useSessionStore();
 
   const itemsInCart = userCart ? Object.keys(userCart?.products).length : 0;
 

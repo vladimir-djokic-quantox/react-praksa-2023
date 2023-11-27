@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import useLogStore from '../store/useLogStore';
+import useSessionStore from '../store/useSessionStore';
 import Button from './ui/Button';
 
 function Account() {
-  const { userData, logout, isLoggedin } = useLogStore();
+  const { userData, logout, isLoggedin } = useSessionStore();
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();

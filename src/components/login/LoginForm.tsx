@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import useLogStore from '../../store/useLogStore';
 import { useNavigate } from 'react-router-dom';
+import useSessionStore from '../../store/useSessionStore';
 import Button from '../ui/Button';
 
 type LoginFormProps = {
@@ -9,7 +9,7 @@ type LoginFormProps = {
 };
 
 function LoginForm() {
-  const { setIsLoggedin, fetchAuth, isLoggedin } = useLogStore();
+  const { setIsLoggedin, fetchAuth, isLoggedin } = useSessionStore();
   const navigate = useNavigate();
 
   const {

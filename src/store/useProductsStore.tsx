@@ -15,7 +15,7 @@ type ProductData = {
   fetchProducts: (options?: FetchProductsOptions) => Promise<void>;
 };
 
-const useFetchStore = create<ProductData>((set) => ({
+const useProductsStore = create<ProductData>((set) => ({
   productsList: [],
   totalProducts: 0,
   fetchProducts: async (options?: FetchProductsOptions) => {
@@ -39,4 +39,4 @@ const useFetchStore = create<ProductData>((set) => ({
   },
 }));
 
-export default useFetchStore;
+export default useProductsStore;

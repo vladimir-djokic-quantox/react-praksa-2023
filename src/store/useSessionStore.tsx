@@ -1,15 +1,67 @@
 import { create } from 'zustand';
+import User from '../types/User';
 import UserCart from '../types/UserCart';
 
-type CartData = {
+type SessionData = {
+  isLoggedin: boolean;
+  userData: User | null;
   userCart: UserCart | null;
+  setIsLoggedin: (value: boolean) => void;
+  fetchAuth: (username: string, password: string) => Promise<void>;
+  logout: () => void;
   fetchUserCartData: (userId: number) => Promise<void>;
   removeItemFromCart: (productId: number) => void;
   addItemToCart: (id: number) => void;
 };
 
-const useCartStore = create<CartData>((set, get) => ({
+const useSessionStore = create<SessionData>((set, get) => ({
+  isLoggedin: window.localStorage.getItem('isLoggedIn') === 'true',
+  userData: JSON.parse(window.localStorage.getItem('userData') || 'null'),
   userCart: JSON.parse(window.localStorage.getItem('userCart') || 'null'),
+  setIsLoggedin: (value: boolean) => {
+    set({ isLoggedin: value });
+    window.localStorage.setItem('isLoggedIn', value ? 'true' : 'false');
+  },
+  fetchAuth: async (username, password) => {
+    try {
+      const response = await fetch('https://dummyjson.com/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        set({ userData: data });
+        set({ isLoggedin: true });
+        window.localStorage.setItem('isLoggedIn', 'true');
+        window.localStorage.setItem('userData', JSON.stringify(data));
+      } else {
+        console.error('Error response:', response.status, response.statusText);
+        set({ isLoggedin: false });
+        window.localStorage.setItem('isLoggedIn', 'false');
+        window.localStorage.removeItem('userData');
+      }
+    } catch (error) {
+      console.error('Error while fetching authentication:', error);
+      set({ isLoggedin: false });
+      window.localStorage.setItem('isLoggedIn', 'false');
+      window.localStorage.removeItem('userData');
+    }
+  },
+  logout: () => {
+    set({ isLoggedin: false });
+    set({ userData: null });
+    window.localStorage.setItem('isLoggedIn', 'false');
+    window.localStorage.removeItem('userData');
+    window.localStorage.removeItem('userCart');
+  },
   fetchUserCartData: async (userId) => {
     try {
       const response = await fetch(
@@ -125,4 +177,4 @@ const useCartStore = create<CartData>((set, get) => ({
   },
 }));
 
-export default useCartStore;
+export default useSessionStore;

@@ -1,7 +1,7 @@
-import useFetchStore from '../../store/useFetchStore';
+import useProductsStore from '../../store/useProductsStore';
 
 function ProductDetails() {
-  const { productsList } = useFetchStore();
+  const { productsList } = useProductsStore();
   const productDetails = productsList[0];
 
   if (!productDetails) {
