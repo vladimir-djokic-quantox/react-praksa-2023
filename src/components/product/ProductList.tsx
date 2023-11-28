@@ -9,20 +9,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 function ProductList() {
   const { query = '', category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const { totalProducts, productsList, fetchProducts } = useProductsStore();
+  const { totalProducts, productsList, getProducts } = useProductsStore();
   const { addItemToCart } = useSessionStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts({ currentPage, query, category });
-  }, [fetchProducts, currentPage, query, category]);
+    getProducts({ currentPage, query, category });
+  }, [getProducts, currentPage, query, category]);
 
   const productsPerPage = 28;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchProducts({ currentPage, query, category });
+    getProducts({ currentPage, query, category });
   };
 
   const handleAction = (
@@ -32,7 +32,7 @@ function ProductList() {
   ) => {
     switch (action) {
       case 'details':
-        fetchProducts({ productName });
+        getProducts({ productName });
         navigate(`/products/details/${productName}`);
         break;
       case 'addtocart':
