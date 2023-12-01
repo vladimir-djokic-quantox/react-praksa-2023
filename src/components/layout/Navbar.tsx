@@ -44,7 +44,7 @@ function Navbar() {
                   <FontAwesomeIcon icon={faShoppingCart} /> {itemsInCart}
                 </a>
               </li>
-              {!isLoggedin && (
+              {!isLoggedin() && (
                 <li>
                   <a
                     href="/login"

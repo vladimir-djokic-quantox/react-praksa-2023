@@ -7,7 +7,7 @@ function Account() {
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
-    if (!isLoggedin) {
+    if (!isLoggedin()) {
       navigate('/login');
     }
   };

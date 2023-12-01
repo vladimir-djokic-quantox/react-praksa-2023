@@ -9,7 +9,7 @@ type LoginFormProps = {
 };
 
 function LoginForm() {
-  const { setIsLoggedin, fetchAuth, isLoggedin } = useSessionStore();
+  const { login, isLoggedin } = useSessionStore();
   const navigate = useNavigate();
 
   const {
@@ -19,11 +19,10 @@ function LoginForm() {
   } = useForm<LoginFormProps>();
 
   const onSubmit: SubmitHandler<LoginFormProps> = async (data) => {
-    await fetchAuth(data.username, data.password);
-    setIsLoggedin(true);
+    await login(data.username, data.password);
   };
 
-  if (isLoggedin) {
+  if (isLoggedin()) {
     navigate('/products');
   }
 

@@ -3,14 +3,14 @@ import useSessionStore from '../../store/useSessionStore';
 import ProductCard from '../product/ProductCard';
 
 function CartList() {
-  const { userCart, fetchUserCartData, removeItemFromCart, userData } =
+  const { userCart, getCartData, removeItemFromCart, userData } =
     useSessionStore();
 
   useEffect(() => {
     if (userData && !userCart) {
-      fetchUserCartData(userData.id);
+      getCartData(userData.id);
     }
-  }, [fetchUserCartData, userData, userCart]);
+  }, [getCartData, userData, userCart]);
 
   const handleAction = (action: string, productId: number) => {
     switch (action) {

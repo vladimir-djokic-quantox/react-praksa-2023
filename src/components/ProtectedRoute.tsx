@@ -4,7 +4,7 @@ import useSessionStore from '../store/useSessionStore';
 const ProtectedRoute = () => {
   const { isLoggedin } = useSessionStore();
 
-  return isLoggedin ? <Outlet /> : <Navigate to={'/login'} />;
+  return isLoggedin() ? <Outlet /> : <Navigate to={'/login'} />;
 };
 
 export default ProtectedRoute;
