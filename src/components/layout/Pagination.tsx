@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 
 type PaginationProps = {
   currentPage: number;
@@ -11,16 +11,14 @@ function Pagination({
   totalPages,
   onPageChange,
 }: PaginationProps) {
-  const [pages, setPages] = useState<number[]>([]);
-
-  useEffect(() => {
+  const pages = useMemo(() => {
     const pagesArray = [];
 
     for (let i = 1; i <= totalPages; i++) {
       pagesArray.push(i);
     }
 
-    setPages(pagesArray);
+    return pagesArray;
   }, [totalPages]);
 
   return (
