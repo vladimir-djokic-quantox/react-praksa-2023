@@ -27,11 +27,10 @@ function LoginForm() {
   }
 
   return (
-    <div className="grid justify-items-center h-80 w-80 mt-20 rounded-md shadow-xl bg-gray-900 ">
+    <div className="grid justify-items-center h-80 w-80 mt-20 rounded-md shadow-xl bg-gray-900">
       <h2 className="text-2xl font-bold mt-12">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-right">
-          {' '}
           <label className="text-left">Username:</label>
           <Controller
             name="username"
@@ -50,7 +49,6 @@ function LoginForm() {
         </div>
 
         <div className="text-right">
-          {' '}
           <label className="text-left">Password:</label>
           <Controller
             name="password"
