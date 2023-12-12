@@ -5,7 +5,7 @@ import useSessionStore from '../../store/useSessionStore';
 function Navbar() {
   const { userCart, isLoggedin } = useSessionStore();
 
-  const itemsInCart = userCart ? Object.keys(userCart?.products).length : 0;
+  const itemsInCart = userCart?.products?.length || 0;
 
   return (
     <div>
@@ -39,7 +39,7 @@ function Navbar() {
               <li>
                 <a
                   href="/cart"
-                  className='className="block py-2 pl-3 pr-4 text-white  font-semibold rounded md:bg-transparent md:p-0  hover:text-blue-700'
+                  className="block py-2 pl-3 pr-4 text-white  font-semibold rounded md:bg-transparent md:p-0  hover:text-blue-700"
                 >
                   <FontAwesomeIcon icon={faShoppingCart} /> {itemsInCart}
                 </a>
