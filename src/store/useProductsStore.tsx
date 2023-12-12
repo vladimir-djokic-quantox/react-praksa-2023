@@ -1,5 +1,10 @@
 import create from 'zustand';
 import Product from '../types/Product';
+import {
+  PRODUCT_BASE_URL,
+  PRODUCT_CATEGORY_URL,
+  PRODUCT_SEARCH_URL,
+} from '../constants';
 
 const PAGE_SIZE = 28;
 
@@ -27,16 +32,14 @@ const useProductsStore = create<ProductData>((set) => ({
 
     const fetchUrl = () => {
       if (category) {
-        return `https://dummyjson.com/products/category/${category}`;
+        return `${PRODUCT_CATEGORY_URL}${category}`;
       }
 
       if (productName || query) {
-        return `https://dummyjson.com/products/search?q=${
-          productName ?? query
-        }`;
+        return `${PRODUCT_SEARCH_URL}${productName ?? query}`;
       }
 
-      return `https://dummyjson.com/products?limit=${PAGE_SIZE}&skip=${skip}`;
+      return `${PRODUCT_BASE_URL}?limit=${PAGE_SIZE}&skip=${skip}`;
     };
 
     const response = await fetch(fetchUrl());
