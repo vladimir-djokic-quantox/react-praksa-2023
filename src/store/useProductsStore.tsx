@@ -2,6 +2,7 @@ import create from 'zustand';
 import Product from '../types/Product';
 import {
   PRODUCT_BASE_URL,
+  PRODUCT_CATEGORIES_URL,
   PRODUCT_CATEGORY_URL,
   PRODUCT_SEARCH_URL,
 } from '../constants';
@@ -14,15 +15,19 @@ type GetProductsOptions = {
   category?: string;
   productName?: string;
 };
+
 type ProductData = {
   productsList: Product[];
   totalProducts: number;
+  categories: string[];
   getProducts: (options?: GetProductsOptions) => Promise<void>;
+  fetchCategories: () => Promise<void>;
 };
 
 const useProductsStore = create<ProductData>((set) => ({
   productsList: [],
   totalProducts: 0,
+  categories: [],
   getProducts: async (options?: GetProductsOptions) => {
     const page = options?.currentPage ?? 1;
     const query = options?.query ?? '';
@@ -45,6 +50,11 @@ const useProductsStore = create<ProductData>((set) => ({
     const response = await fetch(fetchUrl());
     const data = await response.json();
     set({ productsList: data?.products, totalProducts: data?.total });
+  },
+  fetchCategories: async () => {
+    const response = await fetch(`${PRODUCT_CATEGORIES_URL}`);
+    const data = await response.json();
+    set({ categories: data });
   },
 }));
 

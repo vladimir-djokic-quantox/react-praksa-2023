@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import User from '../types/User';
 import UserCart from '../types/UserCart';
+import { AUTH_URL, CART_ADD_REMOVE_URL, CART_BASE_URL } from '../constants';
 
 type SessionData = {
   isLoggedin: () => boolean;
@@ -19,7 +20,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
   userCart: JSON.parse(window.localStorage.getItem('userCart') || 'null'),
   login: async (username, password) => {
     try {
-      const response = await fetch('https://dummyjson.com/auth/login', {
+      const response = await fetch(`${AUTH_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,9 +53,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
   },
   getCartData: async (userId) => {
     try {
-      const response = await fetch(
-        `https://dummyjson.com/carts/user/${userId}`
-      );
+      const response = await fetch(`${CART_BASE_URL}${userId}`);
       const data = await response.json();
 
       if (response.ok && data.carts.length > 0) {
@@ -80,7 +79,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
         (product) => product.id !== id
       );
 
-      fetch(`https://dummyjson.com/carts/${cartId}`, {
+      fetch(`${CART_ADD_REMOVE_URL}${cartId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +122,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
     const cartId = get().userCart?.id;
 
     if (cartId) {
-      fetch(`https://dummyjson.com/carts/${cartId}`, {
+      fetch(`${CART_ADD_REMOVE_URL}${cartId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -142,7 +141,6 @@ const useSessionStore = create<SessionData>((set, get) => ({
           return res.json();
         })
         .then((data) => {
-          console.log('Cart updated successfully:', data);
           set((state) => {
             if (state.userCart) {
               const updatedCart = {

@@ -4,19 +4,12 @@ import useProductsStore from '../../store/useProductsStore';
 
 function ProductFilter() {
   const [hidden, setHidden] = useState(true);
-  const [categoryList, setCategoryList] = useState([]);
-  const { getProducts } = useProductsStore();
+  const { categories, fetchCategories, getProducts } = useProductsStore();
   const navigate = useNavigate();
-
-  const fetchCategories = async () => {
-    const response = await fetch('https://dummyjson.com/products/categories');
-    const data = await response.json();
-    setCategoryList(data);
-  };
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   const handleFilterClick = () => {
     setHidden((prev) => !prev);
@@ -37,13 +30,13 @@ function ProductFilter() {
           hidden ? 'hidden' : ''
         } absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
       >
-        {categoryList.map((category, index) => (
+        {categories.map((category, index) => (
           <button
             key={index}
             type="button"
             className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             onClick={() => {
-              getProducts(category);
+              getProducts({ category });
               navigate(`/products/${category}`);
               setHidden((prev) => !prev);
             }}
