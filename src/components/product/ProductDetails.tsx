@@ -1,8 +1,21 @@
-import useProductsStore from '../../store/useProductsStore';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ProductDetails from '../../types/ProductDetails';
 
 function ProductDetails() {
-  const { productsList } = useProductsStore();
-  const productDetails = productsList[0];
+  const { id } = useParams();
+  const [productDetails, setProductDetails] = useState<ProductDetails | null>(
+    null
+  );
+
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/${id}`)
+      .then((res) => res.json())
+      .then((data: ProductDetails) => setProductDetails(data))
+      .catch((error) =>
+        console.error('Error fetching product details:', error)
+      );
+  }, [id]);
 
   if (!productDetails) {
     return <div>Loading...</div>;
@@ -18,7 +31,7 @@ function ProductDetails() {
       <p>Ocena: {productDetails?.rating}</p>
       <p>Zalihe: {productDetails?.stock}</p>
 
-      <p>Katgorija: {productDetails?.category}</p>
+      <p>Kategorija: {productDetails?.category}</p>
 
       {productDetails?.images && (
         <div className="grid grid-cols-4 gap-4 justify-items-end">

@@ -33,7 +33,7 @@ function ProductList() {
     switch (action) {
       case 'details':
         getProducts({ productName });
-        navigate(`/products/details/${productName}`);
+        navigate(`/products/details/${productId}/${productName}`);
         break;
       case 'addtocart':
         addItemToCart(productId);
