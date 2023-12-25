@@ -53,7 +53,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
   },
   getCartData: async (userId) => {
     try {
-      const response = await fetch(`${CART_BASE_URL}${userId}`);
+      const response = await fetch(`${CART_BASE_URL}/${userId}`);
       const data = await response.json();
 
       if (response.ok && data.carts.length > 0) {
@@ -79,7 +79,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
         (product) => product.id !== id
       );
 
-      fetch(`${CART_ADD_REMOVE_URL}${cartId}`, {
+      fetch(`${CART_ADD_REMOVE_URL}/${cartId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const useSessionStore = create<SessionData>((set, get) => ({
     const cartId = get().userCart?.id;
 
     if (cartId) {
-      fetch(`${CART_ADD_REMOVE_URL}${cartId}`, {
+      fetch(`${CART_ADD_REMOVE_URL}/${cartId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

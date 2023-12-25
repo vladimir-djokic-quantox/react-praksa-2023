@@ -37,7 +37,7 @@ const useProductsStore = create<ProductData>((set) => ({
 
     const fetchUrl = () => {
       if (category) {
-        return `${PRODUCT_CATEGORY_URL}${category}`;
+        return `${PRODUCT_CATEGORY_URL}/${category}`;
       }
 
       if (productName || query) {

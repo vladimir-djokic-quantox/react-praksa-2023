@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductDetails from '../../types/ProductDetails';
+import { PRODUCT_DETAILS_URL } from '../../constants';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -9,7 +10,7 @@ function ProductDetails() {
   );
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
+    fetch(`${PRODUCT_DETAILS_URL}/${id}`)
       .then((res) => res.json())
       .then((data: ProductDetails) => setProductDetails(data))
       .catch((error) =>
