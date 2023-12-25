@@ -9,7 +9,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 function ProductList() {
   const { query = '', category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const { totalProducts, productsList, getProducts } = useProductsStore();
+  const { totalProducts, productsList, getProducts, pageSize } =
+    useProductsStore();
   const { addItemToCart } = useSessionStore();
   const navigate = useNavigate();
 
@@ -17,8 +18,7 @@ function ProductList() {
     getProducts({ currentPage, query, category });
   }, [getProducts, currentPage, query, category]);
 
-  const productsPerPage = 28;
-  const totalPages = Math.ceil(totalProducts / productsPerPage);
+  const totalPages = Math.ceil(totalProducts / pageSize);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

@@ -7,8 +7,6 @@ import {
   PRODUCT_SEARCH_URL,
 } from '../constants';
 
-const PAGE_SIZE = 28;
-
 type GetProductsOptions = {
   currentPage?: number;
   query?: string;
@@ -17,6 +15,7 @@ type GetProductsOptions = {
 };
 
 type ProductData = {
+  pageSize: number;
   productsList: Product[];
   totalProducts: number;
   categories: string[];
@@ -24,7 +23,8 @@ type ProductData = {
   fetchCategories: () => Promise<void>;
 };
 
-const useProductsStore = create<ProductData>((set) => ({
+const useProductsStore = create<ProductData>((set, get) => ({
+  pageSize: 28,
   productsList: [],
   totalProducts: 0,
   categories: [],
@@ -33,7 +33,7 @@ const useProductsStore = create<ProductData>((set) => ({
     const query = options?.query ?? '';
     const category = options?.category ?? '';
     const productName = options?.productName ?? '';
-    const skip = (page - 1) * PAGE_SIZE;
+    const skip = (page - 1) * get().pageSize;
 
     const fetchUrl = () => {
       if (category) {
@@ -44,7 +44,7 @@ const useProductsStore = create<ProductData>((set) => ({
         return `${PRODUCT_SEARCH_URL}${productName ?? query}`;
       }
 
-      return `${PRODUCT_BASE_URL}?limit=${PAGE_SIZE}&skip=${skip}`;
+      return `${PRODUCT_BASE_URL}?limit=${get().pageSize}&skip=${skip}`;
     };
 
     const response = await fetch(fetchUrl());
